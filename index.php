@@ -1,158 +1,255 @@
-<?php include "header.php"; ?>  
-<!-- End Site Header --> 
-  <!-- Start Hero Slider -->
-  <div class="hero-slider flexslider clearfix" data-autoplay="yes" data-pagination="yes" data-arrows="yes" data-style="fade" data-pause="yes">
-    <ul class="slides">
-      <li class=" parallax" style="background-image:url(images/cross.jpg);"></li>
-      <li class="parallax" style="background-image:url(images/christian.jpg);"></li>
-      <li class="parallax" style="background-image:url(images/gallery-img6.jpg);"></li>
-      <li class="parallax" style="background-image:url(images/life.jpg);"></li>
-      <li class="parallax" style="background-image:url(images/noah.jpg);"></li>
-      <li class="parallax" style="background-image:url(images/crosg.jpg);"></li> 
-      <li class="parallax" style="background-image:url(images/love.jpg);"></li>
-      <li class="parallax" style="background-image:url(images/bible.jpg);"></li>
-      <li class="parallax" style="background-image:url(images/chu.jpg);"></li>
-      <li class="parallax" style="background-image:url(images/sit.jpg);"></li>
-      <li class="parallax" style="background-image:url(images/wor.jpg);"></li>
-      <li class="parallax" style="background-image:url(images/pray.png);"></li>
-    </ul>
-  </div>
-  <!-- End Hero Slider --> 
-  <!-- Start Notice Bar -->
-  <div class="notice-bar">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3 col-sm-6 col-xs-6 notice-bar-title"> <span class="notice-bar-title-icon hidden-xs"><i class="fa fa-calendar fa-3x"></i></span> <span class="title-note">Next</span> <strong>Upcoming Event</strong> </div>
-        <?php
-				$result = $db->prepare("SELECT * FROM events ORDER BY id DESC Limit 1");
-				$result->execute();
-				for($i=0; $row = $result->fetch(); $i++){   
-               ?> 
-		<div class="col-md-3 col-sm-6 col-xs-6 notice-bar-event-title">
-          <h5><a href="single-event.html"><?php echo $row['title']; ?></a></h5>
-          <span class="meta-data"><?php echo $row['venue']; ?></span> </div>
-        <div id="counter" class="col-md-4 col-sm-6 col-xs-12 counter" data-date="July 13, 2016">
-          <div class=""> <span ><?php echo $row['date']; ?></span> </div>
-          
-        
-		</div>
-		<?php } ?>
-        <div class="col-md-2 col-sm-6 hidden-xs"> <a href="events.php" class="btn btn-primary btn-lg btn-block">All Events</a> </div>
-      </div>
-    </div>
-  </div>
-  <!-- End Notice Bar --> 
-  <!-- Start Content -->
-  <div class="main" role="main">
-    <div id="content" class="content full">
-      <div class="container">
-        <div class="row"> 
-          <!-- Start Featured Blocks -->
-          
-          <!-- End Featured Blocks --> 
-        </div>
-        <div class="row">
-          <div class="col-md-8 col-sm-6"> 
-            <!-- Events Listing -->
-            <div class="listing events-listing">
-              <header class="listing-header">
-                <h3 class=" titles">About The Apostolic Church Nigeria </h3>
-              </header>
-			  <?php
-				$result = $db->prepare("SELECT * FROM welcome");
+<?php include "header.php"; ?> 
+			<div id="page-wrapper">
+				<div class="graphs">
+					<div class="col_3">
+						<div class="col-md-3 widget widget1">
+							<div class="r3_counter_box">
+								<i class="fa fa-users"></i>
+								<div class="stats">
+								  <h5>45 </h5>
+								  <div class="grow">
+									<p>Registered</p>
+								  </div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 widget widget1">
+							<div class="r3_counter_box">
+								<i class="fa fa-comment"></i>
+								<div class="stats">
+								<?php
+                             include('../connect.php');
+				$result = $db->prepare("SELECT count(*) as total FROM news");
 				$result->execute();
 				for($i=0; $row = $result->fetch(); $i++){
-				?>  
-<?php echo $row['body']; ?>             
-			  <?php } ?>
-            </div>
-            <div class="spacer-30"></div>
-            <!-- Latest News -->
-            <div class="listing post-listing">
-              <header class="listing-header">
-                <h3 class="titles">Latest News</h3></header>
-              <section class="listing-cont">
-                <ul>
-				<li class="item post">
-                    <div class="row">
-                      <div class="col-md-12">
-					  <?php
-				$result = $db->prepare("SELECT * FROM news ORDER BY id DESC Limit 3");
+
+
+               ?>
+								  <h5><?php echo $row['total']; ?> </h5>
+								  <div class="grow grow1">
+									<p>Total News</p>
+								  </div><?php } ?>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 widget widget1">
+							<div class="r3_counter_box">
+								<i class="fa fa-eye"></i>
+								<div class="stats">
+								<?php
+                           // include('../connect.php');
+				$result = $db->prepare("SELECT count(*) as total FROM events");
 				$result->execute();
-				for($i=0; $row = $result->fetch(); $i++){   
-               ?> 
-                        <div class="post-title">
-                          <h2 class=" titles"><a href="news_post.php?id=<?php echo $row['id'];?>"><?php echo $row['news_title']; ?></a></h2>
-                          <span class="meta-data"><i class="fa fa-calendar"></i> on <?php echo $row['date']; ?></span>
-						 <p><?php echo strip_tags(substr($row['news_detail'],0,180)) ;?>...</p>
+				for($i=0; $row = $result->fetch(); $i++){
+
+
+               ?>
+								  <h5><?php echo $row['total']; ?></h5>
+								  <div class="grow grow3">
+									<p>Total Events</p>
+								  </div> <?php } ?>
+								</div>
+							</div>
 						 </div>
-						<?php } ?>
-                      </div>
-                    </div>
-					 <center> -- <a href="news-updates.php">All News</a> --</center>
-                  </li>
-                </ul>
-              </section>
-			 </div>
-          </div>
-          <!-- Start Sidebar -->
-          <div class="col-md-4 col-sm-6">
-            <!-- Latest Sermons -->
-            <div class="listing sermons-listing">
-              <header class="listing-header">
-              </header>
-              <section class="listing-cont">
-                <ul>
-                  <li class="item sermon featured-sermon"> <span class="date"></span>
-                    <h4><a href="https://www.facebook.com/Tacn Abule Egba">Like Us on Facebook</a></h4>
-					<?php
-                            //include('../connect.php');
-				$result = $db->prepare("SELECT * FROM settings");
+						 <div class="col-md-3 widget">
+							<div class="r3_counter_box">
+								<i class="fa fa-inbox"></i>
+								<div class="stats">
+								<?php
+                           // include('../connect.php');
+				$result = $db->prepare("SELECT count(*) as total FROM table_admin");
 				$result->execute();
 				for($i=0; $row = $result->fetch(); $i++){
-               ?> 
-                    <div class="featured-sermon-video">
-                      <!--Facebook Page-->
-<iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F<?php echo $row['facebook'];?>%2F&tabs=timeline&width=20025&height=215&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=403202216515066" 
-        width="100%" height="214" style="border:none;overflow:hidden" scrolling="no" frameborder="0" 
-                                allowTransparency="true"></iframe>
-								</div> <?php } ?>
-                  </li>
-                  <li class="item post">
-                    <div class="row">
-                      <div class="col-md-12"> <a href="donate.php" class="media-box"> <img src="images/dona.jpg" alt="" class="img-thumbnail"> </a></div>
-                     </div>
-                  </li>
-				   <li class="item post">
-                    <div class="row">
-                      <div class="col-md-12"> <a href="gallery.php" class="media-box"> <img src="images/ga.jpg" alt="" class="img-thumbnail"> </a></div>
-                     </div>
-                  </li>
-                 </ul>
-              </section>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Start Featured Gallery -->
-  <div class="featured-gallery">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3 col-sm-3">
-          <h4>Updates from our gallery</h4>
-          <a href="gallery.php" class="btn btn-default btn-lg">More Galleries</a> </div>
-		  <?php
-				$result = $db->prepare("SELECT * FROM gallery ORDER BY id DESC Limit 3");
-				$result->execute();
-				for($i=0; $row = $result->fetch(); $i++){   
-               ?> 
-        <div class="col-md-3 col-sm-3 post format-image"> <a href="uploads/<?php echo $row['file'];?>" class="media-box" data-rel="prettyPhoto[Gallery]"> <img src="uploads/<?php echo $row['file'];?>" alt=""> </a> </div>
-        <?php } ?>
+
+
+               ?>
+								  <h5><?php echo $row['total']; ?> </h5>
+								  <div class="grow grow2">
+									<p>Total Admins</p>
+								  </div>
+								  <?php } ?>
+								</div>
+							</div>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+
+			<!-- switches -->
+		<!-- //switches -->
+		<div class="col_1">
+			<div class="col-md-4 span_8">
+				<div class="activity_box">
+					<h3>Inbox</h3>
+					<div class="scrollbar scrollbar1" id="style-2">
+						<div class="activity-row">
+							<div class="col-xs-3 activity-img"><img src='images/1.png' class="img-responsive" alt=""/></div>
+							<div class="col-xs-7 activity-desc">
+								<h5><a href="#">John Smith</a></h5>
+								<p>Hey ! There I'm available.</p>
+							</div>
+							<div class="col-xs-2 activity-desc1"><h6>13:40 PM</h6></div>
+							<div class="clearfix"> </div>
+						</div>
+						<div class="activity-row">
+							<div class="col-xs-3 activity-img"><img src='images/5.png' class="img-responsive" alt=""/></div>
+							<div class="col-xs-7 activity-desc">
+								<h5><a href="#">Andrew Jos</a></h5>
+								<p>Hey ! There I'm available.</p>
+							</div>
+							<div class="col-xs-2 activity-desc1"><h6>13:40 PM</h6></div>
+							<div class="clearfix"> </div>
+						</div>
+						<div class="activity-row">
+							<div class="col-xs-3 activity-img"><img src='images/3.png' class="img-responsive" alt=""/></div>
+							<div class="col-xs-7 activity-desc">
+								<h5><a href="#">Adom Smith</a></h5>
+								<p>Hey ! There I'm available.</p>
+							</div>
+							<div class="col-xs-2 activity-desc1"><h6>13:40 PM</h6></div>
+							<div class="clearfix"> </div>
+						</div>
+						<div class="activity-row">
+							<div class="col-xs-3 activity-img"><img src='images/4.png' class="img-responsive" alt=""/></div>
+							<div class="col-xs-7 activity-desc">
+								<h5><a href="#">Peter Carl</a></h5>
+								<p>Hey ! There I'm available.</p>
+							</div>
+							<div class="col-xs-2 activity-desc1"><h6>13:40 PM</h6></div>
+							<div class="clearfix"> </div>
+						</div>
+						<div class="activity-row">
+							<div class="col-xs-3 activity-img"><img src='images/1.png' class="img-responsive" alt=""/></div>
+							<div class="col-xs-7 activity-desc">
+								<h5><a href="#">John Smith</a></h5>
+								<p>Hey ! There I'm available.</p>
+							</div>
+							<div class="col-xs-2 activity-desc1"><h6>13:40 PM</h6></div>
+							<div class="clearfix"> </div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4 span_8">
+				<div class="activity_box activity_box1">
+					<h3>chat</h3>
+					<div class="scrollbar" id="style-2">
+						<div class="activity-row activity-row1">
+							<div class="col-xs-3 activity-img"><img src='images/1.png' class="img-responsive" alt=""/><span>10:00 PM</span></div>
+							<div class="col-xs-5 activity-img1">
+								<div class="activity-desc-sub">
+									<h5>John Smith</h5>
+									<p>Hello !</p>
+								</div>
+							</div>
+							<div class="col-xs-4 activity-desc1"></div>
+							<div class="clearfix"> </div>
+						</div>
+						<div class="activity-row activity-row1">
+							<div class="col-xs-2 activity-desc1"></div>
+							<div class="col-xs-7 activity-img2">
+								<div class="activity-desc-sub1">
+									<h5>Adom Smith</h5>
+									<p>Hi,How are you ? What about our next meeting?</p>
+								</div>
+							</div>
+							<div class="col-xs-3 activity-img"><img src='images/3.png' class="img-responsive" alt=""/><span>10:02 PM</span></div>
+							<div class="clearfix"> </div>
+						</div>
+						<div class="activity-row activity-row1">
+							<div class="col-xs-3 activity-img"><img src='images/1.png' class="img-responsive" alt=""/><span>10:00 PM</span></div>
+							<div class="col-xs-5 activity-img1">
+								<div class="activity-desc-sub">
+									<h5>John Smith</h5>
+									<p>Yeah fine</p>
+								</div>
+							</div>
+							<div class="col-xs-4 activity-desc1"></div>
+							<div class="clearfix"> </div>
+						</div>
+						<div class="activity-row activity-row1">
+							<div class="col-xs-2 activity-desc1"></div>
+							<div class="col-xs-7 activity-img2">
+								<div class="activity-desc-sub1">
+									<h5>Adom Smith</h5>
+									<p>Wow that's great</p>
+								</div>
+							</div>
+							<div class="col-xs-3 activity-img"><img src='images/3.png' class="img-responsive" alt=""/><span>10:02 PM</span></div>
+							<div class="clearfix"> </div>
+						</div>
+					</div>
+					<form>
+						<input type="text" value="Enter your text" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter your text';}" required="">
+						<input type="submit" value="Send" required=""/>		
+					</form>
+				</div>
+			</div>
+			<div class="col-md-4 span_8">
+				<div class="activity_box activity_box2">
+					<h3>todo</h3>
+					<div class="scrollbar" id="style-2">
+						<div class="activity-row activity-row1">
+							<div class="single-bottom">
+								<ul>
+									<li>
+										<input type="checkbox"  id="brand" value="">
+										<label for="brand"><span></span> Sunt in culpa qui officia.</label>
+									</li>
+									<li>
+										<input type="checkbox"  id="brand1" value="">
+										<label for="brand1"><span></span> Fugiat quo voluptas nulla.</label>
+									</li>
+									<li>
+										<input type="checkbox"  id="brand2" value="">
+										<label for="brand2"><span></span> Dolorem eum.</label>
+									</li>
+									<li>
+										<input type="checkbox"  id="brand9" value="">
+										<label for="brand9"><span></span> Pain that produces no resultant.</label>
+									</li>
+									<li>
+										<input type="checkbox"  id="brand8" value="">
+										<label for="brand8"><span></span> Cupidatat non proident.</label>
+									</li>
+									<li>
+										<input type="checkbox"  id="brand7" value="">
+										<label for="brand7"><span></span> Praising pain was born.</label>
+									</li>
+									<li>
+										<input type="checkbox"  id="brand3" value="">
+										<label for="brand3"><span></span> Computer & Electronics</label>
+									</li>
+									<li>
+										<input type="checkbox"  id="brand4" value="">
+										<label for="brand4"><span></span> Dolorem ipsum quia.</label>
+									</li>
+									<li>
+										<input type="checkbox"  id="brand5" value="">
+										<label for="brand5"><span></span> Consequatur aut perferendis.</label>
+									</li>
+									<li>
+										<input type="checkbox"  id="brand6" value="">
+										<label for="brand6"><span></span> Dolorem ipsum quia.</label>
+									</li>
+									
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+					<form>
+						<input type="text" value="Enter your text" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter your text';}" required="">
+						<input type="submit" value="Submit" required=""/>		
+					</form>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+			<div class="clearfix"> </div>
+			
 		</div>
-    </div>
-  </div>
-  <!-- End Featured Gallery --> 
-  <!-- Start Footer -->
-  <?php include "footer.php"; ?>
+				</div>
+			<!--body wrapper start-->
+			</div>
+			 <!--body wrapper end-->
+		</div>
+        <?php include "footer.php"; ?>
